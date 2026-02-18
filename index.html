@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مترو یار خط۷</title>
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <style>
         :root {
@@ -185,7 +185,7 @@
                 let sub1 = metro === 0 ? "به موقع رسیدی! درحال ورود!" : `قطار اول حدود <span class="highlight">${metro}</span> دقیقه دیگر می‌رسد`;
                 let arrive1 = `رسیدن به مقصد با قطار اول: <span class="highlight">${linesX[i] - linesM[i] + metro}</span> دقیقه دیگر`;
                 
-                let sub2 = "پایان فعالیت خط";
+                let sub2 = "دیر رسیدید قطار دومی درکار نیست🙃";
                 let arrive2 = "";
                 if (linesM[i+1]) {
                     let nextMet = linesM[i+1] - nowMinutes;
@@ -203,7 +203,7 @@
             }
         }
 
-        if (!found) resultDiv.innerText = "دیر رسیدی! پایان فعالیت خط.";
+        if (!found) resultDiv.innerText = "دیر رسیدی پایان فعالیت خط🙃";
         
         document.getElementById('result-section').classList.remove('hidden');
         document.getElementById('title').innerText = "زمان‌بندی حرکت";
