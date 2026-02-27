@@ -1,213 +1,267 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مترو یار خط۷</title>
-    <link rel="icon" href="favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>مترو یار</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-    <style>
-        :root {
-            --neon-pink: #ff5c00;
-            --neon-blue: #AA00D4;
-            --glass: rgba(255, 255, 255, 0.1);
-        }
+<style>
+:root {
+    --neon-pink: #ff007f;
+    --neon-purple: #AA00D4;
+    --neon-blue: #00d4ff;
+    --neon-orange: #ff5c00; 
+    --glass: rgba(255, 255, 255, 0.1);
+}
 
-        body {
-            margin: 0;
-            font-family: 'Tahoma', sans-serif;
-            background: #050505 url('109.png') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Tahoma', sans-serif;
+}
 
-        .container {
-            width: 90%;
-            max-width: 480px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 30px;
-            padding: 25px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-            text-align: center;
-        }
+body {
+    background: #050505 url('109.png') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            max-height: 320px;
-            overflow-y: auto;
-            padding: 10px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 20px;
-        }
+/* صفحه اصلی (کنتینر) */
+.container {
+    width: 90%;
+    max-width: 480px;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    text-align: center;
+    z-index: 1;
+}
 
-        /* طراحی دکمه‌های گرد طبق درخواست */
-        .btn-station {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white;
-            padding: 12px;
-            border-radius: 50px; 
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 0.85rem;
-        }
+/* دکمه‌ها */
+.btn-main, .btn-maain, .btn-map, .btn-maaain {
+    width: 100%;
+    padding: 18px;
+    margin: 15px 0;
+    font-size: 1rem;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-        .btn-station:hover {
-            background: var(--neon-blue);
-            box-shadow: 0 0 15px var(--neon-blue);
-            color: #ffffff;
-        }
+.btn-main:hover {
+    background: var(--neon-blue);
+    box-shadow: 0 0 15px var(--neon-blue);
+    color: black;
+}
+.btn-maain:hover {
+    background: var(--neon-purple);
+    box-shadow: 0 0 15px var(--neon-purple);
+    color: white;
+}
+.btn-maaain:hover {
+    background: var(--neon-pink);
+    box-shadow: 0 0 15px var(--neon-pink);
+    color: white;
+}
+.btn-map:hover {
+    background: var(--neon-orange);
+    box-shadow: 0 0 15px var(--neon-orange);
+    color: white;
+}
 
-        .result-panel {
-            background: rgba(0,0,0,0.6);
-            border-radius: 20px;
-            padding: 20px;
-            margin-top: 20px;
-            border-right: 4px solid var(--neon-pink);
-            text-align: right;
-            line-height: 1.8;
-        }
+h2 {
+    text-shadow: 0 0 10px var(--neon-orange);
+}
 
-        .highlight { color: var(--neon-blue); font-weight: bold; }
-        .hidden { display: none; }
-        h2 { text-shadow: 0 0 10px var(--neon-blue); }
-    </style>
+/* ---------- اولین اجرا — اورلِی تمام صفحه ---------- */
+.first-run-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999; /* بالاتر از بقیه */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* نیمه شفاف برای تیره‌تر کردن پس‌زمینه */
+    background: rgba(0,0,0,0.25);
+    /* اجازه میده محتوای پشت اورلِی با blur تار بشه (بستگی به مرورگر) */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* در برخی مرورگرها اگر بخوایم دقیق همان بک‌گراندِ تصویر را ببینیم ولی تار شده،
+   می‌توانیم یک لایه پس‌زمینه (همان تصویر) اضافه کنیم */
+.first-run-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('109.png') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(10px) brightness(0.6);
+    transform: scale(1.02);
+    z-index: -1;
+}
+
+/* خود پنجره پیام */
+.first-run-modal {
+    max-width: 720px;
+    width: calc(100% - 48px);
+    margin: 0 24px;
+    background: rgba(0,0,0,0.45);
+    border-radius: 18px;
+    padding: 28px;
+    color: #ffffff;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* متن پیام */
+.first-run-modal p {
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin: 0 0 20px 0;
+    white-space: pre-line; /* برای حفظ break line */
+}
+
+/* دکمه شروع — مطابق خواسته: رنگ --neon-orange و متن سفید */
+.first-run-start {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 40px;
+    background: var(--neon-orange);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255,92,0,0.25);
+    transition: transform .12s ease, box-shadow .12s ease;
+    text-decoration: none;
+}
+.first-run-start:active { transform: translateY(1px); }
+.first-run-start:focus { outline: 3px solid rgba(255,92,0,0.18); }
+
+/* برای جلوگیری از اسکرول وقتی اورلِی بازه */
+.noscroll {
+    overflow: hidden !important;
+    height: 100%;
+}
+</style>
 </head>
+
 <body>
 
-<div class="container">
-    <h2 id="title">مبدا را انتخاب کنید</h2>
-    
-    <div id="station-section" class="grid"></div>
-
-    <div id="day-section" class="hidden">
-        <button class="btn-station" style="width:100%; margin-bottom:10px" onclick="selectDay('روز عادی')">روز عادی (شنبه تا چهارشنبه)</button>
-        <button class="btn-station" style="width:100%; margin-bottom:10px" onclick="selectDay('پنجشنبه')">پنجشنبه</button>
-        <button class="btn-station" style="width:100%; margin-bottom:10px" onclick="selectDay('تعطیل رسمی')">تعطیل رسمی</button>
-    </div>
-
-    <div id="result-section" class="hidden">
-        <div class="result-panel" id="result-text"></div>
-        <button class="btn-station" style="width:100%; margin-top:20px; background: var(--neon-pink)" onclick="location.reload()">جستجوی جدید</button>
+<!-- ---------- اورلئ نمایش پیام اولین اجرا ---------- -->
+<div id="firstRunOverlay" class="first-run-overlay" aria-hidden="true" style="display:none;">
+    <div class="first-run-modal" role="dialog" aria-modal="true" aria-labelledby="firstRunTitle">
+        <h2 id="firstRunTitle" style="margin-top:0; margin-bottom:12px;">هشدار!</h2>
+        <p>
+با سلام خدمت شما مسافر گرامی
+این برنامه از جدول زمان‌بندی مترو تهران و حومه استفاده میکند و باتوجه به ترافیک خطوط، امکان خطا در اعلام زمان وجود دارد
+        </p>
+        <button id="firstRunStart" class="first-run-start">شروع</button>
     </div>
 </div>
 
+<!-- ---------- محتوای اصلی شما (بدون تغییر) ---------- -->
+<div class="container" id="mainContainer">
+    <h2>به مترویار خوش‌آمدید!</h2>
+
+    <button class="btn-main"
+        onclick="window.location.href='https://tm-studio-r.github.io/Subway/line3'">
+        مترو یار خط ۳
+    </button>
+
+    <button class="btn-maaain"
+        onclick="window.location.href='https://tm-studio-r.github.io/Subway/line6'">
+        مترو یار خط ۶
+    </button>
+
+    <button class="btn-maain"
+        onclick="window.location.href='https://tm-studio-r.github.io/Subway/line7'">
+        مترو یار خط ۷
+    </button>
+
+    <button class="btn-map"
+        onclick="window.location.href='https://tm-studio-r.github.io/Subway/map.png'">
+        نقشه مترو تهران
+    </button>
+
+</div>
+
 <script>
-    // اصلاح باگ نام ایستگاه بریانک
-    const stations = {
-        "بسیج": 1, "آهنگ": 2, "چهل تن دولاب": 3, "شهدای 17 شهریور": 4, "میدان قیام": 5,
-        "مولوی": 6, "میدان محمدیه": 7, "مهدیه": 8, "هلال احمر": 9, "بریانک": 10,
-        "کمیل": 11, "رودکی": 12, "شهید نواب صفوی": 13, "توحید": 14, "مدافعان سلامت": 15,
-        "تربیت مدرس": 16, "بوستان گفتگو": 17, "برج میلاد": 18, "میدان صنعت": 19,
-        "شهید دادمان": 20, "میدان کتاب": 21
-    };
+(function() {
+    const STORAGE_KEY = 'metroyar_first_run_seen_v1';
+    const overlay = document.getElementById('firstRunOverlay');
+    const startBtn = document.getElementById('firstRunStart');
 
-    let userSelection = { mabda: null, maghsad: null, day: null };
+    function showOverlay() {
+        overlay.style.display = 'flex';
+        overlay.setAttribute('aria-hidden', 'false');
+        document.documentElement.classList.add('noscroll');
+        document.body.classList.add('noscroll');
+        // تمرکز روی دکمه شروع
+        startBtn.focus();
+    }
 
-    // مقداردهی اولیه ایستگاه‌ها
-    const grid = document.getElementById('station-section');
-    Object.keys(stations).forEach(name => {
-        let btn = document.createElement('button');
-        btn.className = 'btn-station';
-        btn.innerText = name;
-        btn.onclick = () => handleSelect(name);
-        grid.appendChild(btn);
+    function hideOverlay(persist=true) {
+        overlay.style.display = 'none';
+        overlay.setAttribute('aria-hidden', 'true');
+        document.documentElement.classList.remove('noscroll');
+        document.body.classList.remove('noscroll');
+        if (persist) {
+            try { localStorage.setItem(STORAGE_KEY, '1'); } catch(e) { /* ignore */ }
+        }
+    }
+
+    // اگر قبلاً نشان داده شده نباشد => نمایش بده
+    try {
+        const seen = localStorage.getItem(STORAGE_KEY);
+        if (!seen) {
+            // نمایش با یک تاخیر خیلی کوتاه تا رندر قبلی کامل شود
+            setTimeout(showOverlay, 80);
+        }
+    } catch(e) {
+        // اگر localStorage موجود نبود (مثلاً خصوصی/محدود)، باز هم نشان می‌دهیم
+        setTimeout(showOverlay, 80);
+    }
+
+    // کلیک روی شروع -> ثبت و مخفی
+    startBtn.addEventListener('click', function () {
+        hideOverlay(true);
     });
 
-    function handleSelect(name) {
-        if (!userSelection.mabda) {
-            userSelection.mabda = name;
-            document.getElementById('title').innerText = "مقصد را انتخاب کنید";
-        } else {
-            userSelection.maghsad = name;
-            grid.classList.add('hidden');
-            document.getElementById('day-section').classList.remove('hidden');
-            document.getElementById('title').innerText = "نوع روز";
+    // اگر کاربر کلید ESC زد، هم پنجره بسته شود و ثبت شود
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.style.display === 'flex') {
+            hideOverlay(true);
         }
-    }
+    });
 
-    async function selectDay(day) {
-        userSelection.day = day;
-        document.getElementById('day-section').classList.add('hidden');
-        document.getElementById('title').innerText = "در حال محاسبه...";
-        await startCalculation();
-    }
-
-    async function startCalculation() {
-        const mIdx = stations[userSelection.mabda];
-        const tIdx = stations[userSelection.maghsad];
-        let folder = "";
-
-        // رعایت دقیق توابع انتخاب پوشه از کد پایتون
-        if (tIdx >= mIdx) {
-            if (userSelection.day === "پنجشنبه") folder = "بسیج_5";
-            else if (userSelection.day === "تعطیل رسمی") folder = "بسیج_تعطیل";
-            else folder = "بسیج_عادی";
-        } else {
-            if (userSelection.day === "پنجشنبه") folder = "کتاب_5";
-            else if (userSelection.day === "تعطیل رسمی") folder = "کتاب_تعطیل";
-            else folder = "کتاب_عادی";
+    // جلوگیری از کلیک روی پس‌زمینه برای بستن (تا فقط با دکمه بسته شود)
+    overlay.addEventListener('click', function (ev) {
+        if (ev.target === overlay) {
+            // اگر خواستید کلیک روی پشت‌زمینه پنجره را ببندد، این خط را آنکامنت کنید:
+            // hideOverlay(true);
+            ev.stopPropagation();
         }
-
-        try {
-            // خواندن فایل‌ها از سرور
-            const respMabda = await fetch(`${folder}/${mIdx}.txt`);
-            const respMaghsad = await fetch(`${folder}/${tIdx}.txt`);
-            
-            const dataMabda = (await respMabda.text()).split('\n').map(Number);
-            const dataMaghsad = (await respMaghsad.text()).split('\n').map(Number);
-
-            displayResults(dataMabda, dataMaghsad);
-        } catch (err) {
-            alert("خطا در بارگذاری اطلاعات! مطمئن شوید فایل‌ها در سرور موجود هستند.");
-        }
-    }
-
-    function displayResults(linesM, linesX) {
-        const now = new Date();
-        const nowMinutes = (now.getHours() * 60) + now.getMinutes();
-        let resultDiv = document.getElementById('result-text');
-        let found = false;
-
-        for (let i = 0; i < linesM.length; i++) {
-            let metro = linesM[i] - nowMinutes;
-            if (metro >= 0) {
-                found = true;
-                let sub1 = metro === 0 ? "به موقع رسیدی! درحال ورود!" : `قطار اول حدود <span class="highlight">${metro}</span> دقیقه دیگر می‌رسد`;
-                let arrive1 = `رسیدن به مقصد با قطار اول: <span class="highlight">${linesX[i] - linesM[i] + metro}</span> دقیقه دیگر`;
-                
-                let sub2 = "دیر رسیدید قطار دومی درکار نیست🙃";
-                let arrive2 = "";
-                if (linesM[i+1]) {
-                    let nextMet = linesM[i+1] - nowMinutes;
-                    sub2 = `قطار دوم حدود <span class="highlight">${nextMet}</span> دقیقه دیگر می‌رسد`;
-                    arrive2 = `رسیدن به مقصد با قطار دوم: <span class="highlight">${linesX[i+1] - linesM[i+1] + nextMet}</span> دقیقه دیگر`;
-                }
-
-                resultDiv.innerHTML = `
-                    ایستگاه <span class="highlight">${userSelection.mabda}</span> به <span class="highlight">${userSelection.maghsad}</span><br>
-                    ------------------------------------------<br>
-                    ${sub1}<br>${arrive1}<br><br>
-                    ${sub2}<br>${arrive2}
-                `;
-                break;
-            }
-        }
-
-        if (!found) resultDiv.innerText = "دیر رسیدی پایان فعالیت خط🙃";
-        
-        document.getElementById('result-section').classList.remove('hidden');
-        document.getElementById('title').innerText = "زمان‌بندی حرکت";
-    }
+    });
+})();
 </script>
+
 </body>
 </html>
