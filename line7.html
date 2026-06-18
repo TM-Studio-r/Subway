@@ -8,6 +8,18 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <style>
+        @font-face {
+            font-family: 'ginkg';
+            src: url('x.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'ginkgo';
+            src: url('n.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'ginkgoo';
+            src: url('e.ttf') format('truetype');
+        }
         :root {
             --neon-pink: #ff5c00;
             --neon-blue: #AA00D4;
@@ -23,6 +35,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            font-family: 'ginkgo', 'ginkg', 'ginkgoo';
+            font-weight: 500;
+            font-variation-settings: 'ROND' 100;
+            font-style: normal;
             min-height: 100vh;
         }
 
@@ -59,9 +75,15 @@
             cursor: pointer;
             transition: 0.3s;
             font-size: 0.85rem;
+            font-family: 'ginkgo', 'ginkg', 'ginkgoo';
+            font-weight: 500;
+            font-variation-settings: 'ROND' 100;
+            font-style: normal;
         }
 
         .btn-station:hover {
+            border-radius: 17px;
+            transform: scale(0.95);
             background: var(--neon-blue);
             box-shadow: 0 0 15px var(--neon-blue);
             color: #ffffff;
@@ -71,6 +93,10 @@
             background: rgba(0,0,0,0.6);
             border-radius: 20px;
             padding: 20px;
+            font-family: 'ginkgo', 'ginkg', 'ginkgoo';
+            font-weight: 500;
+            font-variation-settings: 'ROND' 100;
+            font-style: normal;
             margin-top: 20px;
             border-right: 4px solid var(--neon-pink);
             text-align: right;
@@ -102,15 +128,30 @@
 </div>
 
 <script>
-    // اصلاح باگ نام ایستگاه بریانک
     const stations = {
-        "بسیج": 1, "آهنگ": 2, "چهل تن دولاب": 3, "شهدای 17 شهریور": 4, "میدان قیام": 5,
-        "مولوی": 6, "میدان محمدیه": 7, "مهدیه": 8, "هلال احمر": 9, "بریانک": 10,
-        "کمیل": 11, "رودکی": 12, "شهید نواب صفوی": 13, "توحید": 14, "مدافعان سلامت": 15,
-        "تربیت مدرس": 16, "بوستان گفتگو": 17, "برج میلاد": 18, "میدان صنعت": 19,
-        "شهید دادمان": 20, "میدان کتاب": 21
+        "ورزشگاه تختی": 1,
+        "بسیج": 2,
+        "آهنگ": 3,
+        "چهل تن دولاب": 4,
+        "شهدای 17 شهریور": 5,
+        "میدان قیام": 6,
+        "مولوی": 7,
+        "میدان محمدیه": 8,
+        "مهدیه": 9,
+        "هلال احمر": 10,
+        "بریانک": 11,
+        "کمیل": 12,
+        "رودکی": 13,
+        "شهید نواب صفوی": 14,
+        "توحید": 15,
+        "مدافعان سلامت": 16,
+        "تربیت مدرس": 17,
+        "بوستان گفتگو": 18,
+        "برج میلاد": 19,
+        "میدان صنعت": 20,
+        "شهید دادمان": 21,
+        "میدان کتاب": 22
     };
-
     let userSelection = { mabda: null, maghsad: null, day: null };
 
     // مقداردهی اولیه ایستگاه‌ها
