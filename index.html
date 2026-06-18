@@ -9,7 +9,32 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 <style>
+@font-face {
+    font-family: 'ginkg';
+    src: url('x.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'ginkgo';
+    src: url('n.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'ginkgoo';
+    src: url('e.ttf') format('truetype');
+}
 :root {
+    --bg-color: #e5e5e5;
+    --bg-image: url('l1.jpeg');
+    --glass-bg: rgba(255, 255, 255, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --text-main: #000000;
+    --text-muted: #464646;
+    --accent-color: #3390ec;
+    --msg-self-bg: #E3F2FD;
+    --msg-other-bg: #ffffff;
+    --neon-glow: 0 0 10px rgba(51, 144, 236, 0.5);
+    --shadow-glass: 0 4px 30px rgba(0, 0, 0, 0.1);
+    --scrollbar-thumb: rgba(0, 0, 0, 0.15);
+
     --neon-pink: #ff007f;
     --neon-purple: #AA00D4;
     --neon-blue: #00d4ff;
@@ -28,6 +53,10 @@ body {
     background-size: cover;
     color: white;
     display: flex;
+    font-family: 'ginkgo', 'ginkg', 'ginkgoo';
+    font-weight: 500;
+    font-variation-settings: 'ROND' 100;
+    font-style: normal;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -36,7 +65,7 @@ body {
 
 /* صفحه اصلی (کنتینر) */
 .container {
-    width: 90%;
+    position: fixed;
     max-width: 480px;
     background: var(--glass);
     backdrop-filter: blur(20px);
@@ -47,6 +76,7 @@ body {
     box-shadow: 0 0 30px rgba(0,0,0,0.5);
     text-align: center;
     z-index: 1;
+    left: 20px; right: 20px; top: 90px;
 }
 
 /* دکمه‌ها */
@@ -56,29 +86,41 @@ body {
     margin: 15px 0;
     font-size: 1rem;
     border-radius: 50px;
+    font-family: 'ginkgo', 'ginkg', 'ginkgoo';
+    font-weight: 500;
+    font-variation-settings: 'ROND' 100;
+    font-style: normal;
     border: 1px solid rgba(255,255,255,0.2);
     background: rgba(255,255,255,0.08);
     color: white;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.4s;
 }
 
 .btn-main:hover {
+    border-radius: 17px;
+    transform: scale(0.95);
     background: var(--neon-blue);
     box-shadow: 0 0 15px var(--neon-blue);
     color: black;
 }
 .btn-maain:hover {
+    border-radius: 17px;
+    transform: scale(0.95);
     background: var(--neon-purple);
     box-shadow: 0 0 15px var(--neon-purple);
     color: white;
 }
 .btn-maaain:hover {
+    border-radius: 17px;
+    transform: scale(0.95);
     background: var(--neon-pink);
     box-shadow: 0 0 15px var(--neon-pink);
     color: white;
 }
 .btn-map:hover {
+    border-radius: 17px;
+    transform: scale(0.95);
     background: var(--neon-orange);
     box-shadow: 0 0 15px var(--neon-orange);
     color: white;
@@ -160,6 +202,35 @@ h2 {
     overflow: hidden !important;
     height: 100%;
 }
+
+footer { position: fixed; bottom: 40px; left: 20px; right: 20px; display: flex; align-items: flex-end; gap: 10px; z-index: 100; }
+.input-wrapper { flex: 1; border-radius: 28px; padding: 12px 15px; display: flex; flex-direction: column; gap: 8px; min-height: 30px; background: var(--glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+.response-box {
+    min-height: 0px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 0;
+    border-radius: 18px;
+    background: none;
+    color: var(--text-main);
+    font-size: 15px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    text-align: right;
+    font-style: normal;
+}
+.response-box.empty {
+    color: var(--text-muted);
+}
+#msg-input { width: 100%; background: transparent; border: none; outline: none; color: var(--text-main); font-size: 16px; max-height: 120px; resize: none; overflow-y: auto; font-family: inherit; line-height: 20px; }
+#msg-input::placeholder { color: var(--text-muted); }
+.send-btn { width: 34px; height: 34px; border-radius: 50%; background:none; border: none; color: #fff; display: flex; justify-content: center; align-items: center; cursor: pointer; flex-shrink: 0; align-self: flex-end; }
+.send-btn img { width: 30px; height: 30px; fill: currentColor; margin-right: 4px;}
+
+
 </style>
 </head>
 
@@ -182,86 +253,156 @@ h2 {
     <h2>به مترویار خوش‌آمدید!</h2>
 
     <button class="btn-main"
-        onclick="window.location.href='https://tm-studio-r.github.io/Subway/line3'">
+        onclick="window.location.href='line3.html'">
         مترو یار خط ۳
     </button>
 
     <button class="btn-maaain"
-        onclick="window.location.href='https://tm-studio-r.github.io/Subway/line6'">
+        onclick="window.location.href='line6.html'">
         مترو یار خط ۶
     </button>
 
     <button class="btn-maain"
-        onclick="window.location.href='https://tm-studio-r.github.io/Subway/line7'">
+        onclick="window.location.href='line7.html'">
         مترو یار خط ۷
     </button>
 
     <button class="btn-map"
-        onclick="window.location.href='https://tm-studio-r.github.io/Subway/map.png'">
+        onclick="window.location.href='map.png'">
         نقشه مترو تهران
     </button>
 
 </div>
 
+<footer>
+    <div class="input-wrapper glass">
+        <div id="ai-response" class="response-box" aria-live="polite"></div>
+        <textarea id="msg-input" rows="1" placeholder="با آیو مسیریابی کن..." onkeydown="handleKeyPress(event)"></textarea>
+        <button class="send-btn" onclick="openPage()" aria-label="ارسال">
+            <img src="ai.png" alt="ارسال با آیو" />
+        </button>
+    </div>
+</footer>
+
+
+
 <script>
-(function() {
+(function () {
+    const API_URL = "https://api.gapgpt.app/v1/responses";
+    const API_KEY = "sk-dhlboXx229zWJrpnc9EAr3fr52UrsXOk85ZevwXfalwkRSNd"; // کلید خودت را اینجا بگذار
+    const MODEL = "gpt-5-nano";
+
     const STORAGE_KEY = 'metroyar_first_run_seen_v1';
     const overlay = document.getElementById('firstRunOverlay');
     const startBtn = document.getElementById('firstRunStart');
+    const input = document.getElementById('msg-input');
+    const responseBox = document.getElementById('ai-response');
+
+    function setResponse(text, isThinking = false) {
+        responseBox.textContent = text;
+        responseBox.classList.toggle('empty', !text);
+        responseBox.style.fontStyle = isThinking ? 'normal' : 'normal';
+    }
+
+    async function openPage() {
+        const metroData = await fetch('metro.json')
+            .then(response => response.text());
+
+        const message =
+            metroData +
+            "\n\nسوال کاربر:\n" +
+            (input.value || '').trim();
+        if (!message) {
+            setResponse('یک متن برای مسیر وارد کن.');
+            return;
+        }
+
+        // اول کادر را برای ارسال دوباره تنظیم می‌کنیم
+        input.value = '';
+        input.focus();
+        setResponse('آیو درحال فکر کردن است...', true);
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: "gpt-5-nano",
+                    input: message
+                })
+            });
+            const data = await response.json();
+            const text =
+            data.output?.[1]?.content?.[0]?.text ||
+            "پاسخی دریافت نشد";
+            if (!response.ok) {
+                throw new Error(text || `HTTP ${response.status}`);
+            }
+
+            setResponse(text);
+        } catch (err) {
+            setResponse('خطا در دریافت پاسخ: ' + (err?.message || 'نامشخص'));
+        }
+    }
+
+    function handleKeyPress(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            openPage();
+        }
+    }
 
     function showOverlay() {
         overlay.style.display = 'flex';
         overlay.setAttribute('aria-hidden', 'false');
         document.documentElement.classList.add('noscroll');
         document.body.classList.add('noscroll');
-        // تمرکز روی دکمه شروع
         startBtn.focus();
     }
 
-    function hideOverlay(persist=true) {
+    function hideOverlay(persist = true) {
         overlay.style.display = 'none';
         overlay.setAttribute('aria-hidden', 'true');
         document.documentElement.classList.remove('noscroll');
         document.body.classList.remove('noscroll');
         if (persist) {
-            try { localStorage.setItem(STORAGE_KEY, '1'); } catch(e) { /* ignore */ }
+            try { localStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
         }
     }
 
-    // اگر قبلاً نشان داده شده نباشد => نمایش بده
+    // نمایش اولیه پاسخ
+    setResponse('');
+
     try {
         const seen = localStorage.getItem(STORAGE_KEY);
-        if (!seen) {
-            // نمایش با یک تاخیر خیلی کوتاه تا رندر قبلی کامل شود
-            setTimeout(showOverlay, 80);
-        }
-    } catch(e) {
-        // اگر localStorage موجود نبود (مثلاً خصوصی/محدود)، باز هم نشان می‌دهیم
+        if (!seen) setTimeout(showOverlay, 80);
+    } catch (e) {
         setTimeout(showOverlay, 80);
     }
 
-    // کلیک روی شروع -> ثبت و مخفی
     startBtn.addEventListener('click', function () {
         hideOverlay(true);
     });
 
-    // اگر کاربر کلید ESC زد، هم پنجره بسته شود و ثبت شود
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && overlay.style.display === 'flex') {
             hideOverlay(true);
         }
     });
 
-    // جلوگیری از کلیک روی پس‌زمینه برای بستن (تا فقط با دکمه بسته شود)
     overlay.addEventListener('click', function (ev) {
-        if (ev.target === overlay) {
-            // اگر خواستید کلیک روی پشت‌زمینه پنجره را ببندد، این خط را آنکامنت کنید:
-            // hideOverlay(true);
-            ev.stopPropagation();
-        }
+        if (ev.target === overlay) ev.stopPropagation();
     });
+
+    // هر کلیکی خارج از کادر ورودی -> بازگشت به index.html
+    window.openPage = openPage;
+    window.handleKeyPress = handleKeyPress;
 })();
 </script>
+
 
 </body>
 </html>
